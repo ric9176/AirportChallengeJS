@@ -4,6 +4,7 @@ describe("Airport", function() {
 
   beforeEach(function() {
     airport = new Airport();
+    airportCapacity = new Airport(3)
     plane = { land: 666, takeoff: 666 };
     spyOn(plane, 'land');
     spyOn(plane, 'takeoff');
@@ -24,6 +25,12 @@ describe("Airport", function() {
     it('instructs a plane to land', function() {
       expect(airport.land_plane(plane)).toEqual("Plane has landed");
     })
+    it('prvents landing when the airport is full', function() {
+      for (var i = 0; i < 8; i++){
+        airport.land_plane(plane)
+      }
+        expect( function () { airport.land_plane(plane) } ).toThrow("Can't land plane, airport full!")
+    })
   })
 
   describe('#takeoff_plane', function() {
@@ -31,6 +38,14 @@ describe("Airport", function() {
       expect(airport.takeoff_plane(plane)).toEqual("Plane has taken off");
     })
   })
+
+  it("allows default capacity to be set", function() {
+    for (var i = 0; i < 3; i++){
+    airportCapacity.land_plane(plane)
+  }
+    expect( function () { airportCapacity.land_plane(plane) } ).toThrow("Can't land plane, airport full!")
+  })
+
 
 });
 
