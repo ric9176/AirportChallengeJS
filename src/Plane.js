@@ -1,19 +1,19 @@
 function Plane() {
-  this.status = "flying";
+  this.status = "Flying";
 }
 
 Plane.prototype.land = function () {
-  if (this.status === "landed") {
+  if (this.status === "Landed") {
     throw "The plane has already landed!";
   }
-  this.status = "landed";
+  this.status = "Landed";
   return "The plane landed";
 };
 
 Plane.prototype.takeoff = function () {
-  if (this.status === "flying") {
+  if (this.status === "Flying") {
     throw "The plane has already taken off!"
   }
-  this.status = "flying";
+  this.status = "Flying";
   return "The plane took off";
 };

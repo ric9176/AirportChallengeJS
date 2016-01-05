@@ -4,26 +4,32 @@ describe("Airport", function() {
 
   beforeEach(function() {
     airport = new Airport();
-    plane = {
-      land: 666
-    };
+    plane = { land: 666, takeoff: 666 };
     spyOn(plane, 'land');
+    spyOn(plane, 'takeoff');
   });
 
+  describe('#planes', function() {
+    it('airport has no planes at start', function() {
+      expect(airport.planes.length).toEqual(0)
+    })
 
-
-  it('airport has no planes at start', function() {
-    expect(airport.planes.length).toEqual(0)
+    it('airport contains landed plane', function() {
+      airport.land_plane(plane)
+      expect(airport.planes).toContain(plane)
+    })
   })
 
-  it('airport contains landed plane', function() {
-    airport.land_plane(plane)
-    expect(airport.planes).toContain(plane)
+  describe('#land_plane', function() {
+    it('instructs a plane to land', function() {
+      expect(airport.land_plane(plane)).toEqual("Plane has landed");
+    })
   })
 
-  it('instructs a plane to land', function() {
-    expect(airport.land_plane(plane)).toEqual("Plane has landed");
-
+  describe('#takeoff_plane', function() {
+    it('instructs a plane to take off', function() {
+      expect(airport.takeoff_plane(plane)).toEqual("Plane has taken off");
+    })
   })
 
 });
