@@ -1,14 +1,18 @@
 function Airport(capacity) {
-  const DEFAULT_CAPACITY = 8;
   this.planes = [];
+
+  const DEFAULT_CAPACITY = 8;
   if (typeof(capacity)==='undefined') capacity = DEFAULT_CAPACITY;
-  this.capacity = capacity
+  this.capacity = capacity;
 }
 
 Airport.prototype.land_plane = function (plane) {
   if (this.planes.length >= this.capacity) {
     throw "Can't land plane, airport full!"
   }
+  // if (weather.stormy) {
+  //   throw "Can't land plane, weather is stormy!"
+  // }
   plane.land();
   this.planes.push(plane);
   return "Plane has landed"
