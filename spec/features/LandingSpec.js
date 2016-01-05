@@ -1,10 +1,13 @@
 describe("Landing and Taking off", function(){
   var plane;
   var airport;
+  var weather;
 
   beforeEach(function() {
     plane = new Plane();
-    airport = new Airport();
+    weather = { stormy: function() { return false }
+    };
+    airport = new Airport(8, weather);
   });
 
   it("Airport can tell a plane to land", function() {

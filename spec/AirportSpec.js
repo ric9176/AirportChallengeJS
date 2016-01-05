@@ -4,13 +4,12 @@ describe("Airport", function() {
   var weather = null;
 
   beforeEach(function() {
-    airport = new Airport();
-    airportCapacity = new Airport(3)
-    plane = { land: 666, takeoff: 666 };
-    weather = { stormy: false};
-    spyOn(plane, 'land');
-    spyOn(plane, 'takeoff');
-    spyOn(weather, 'stormy');
+    plane = { land: function() { return true }, takeoff: function() { return true }
+    };
+    weather = { stormy: function() { return false }
+    };
+    airport = new Airport(8, weather);
+    smallerAirport = new Airport(3, weather);
   });
 
   describe('#planes', function() {
@@ -28,17 +27,13 @@ describe("Airport", function() {
     it('instructs a plane to land', function() {
       expect(airport.land_plane(plane)).toEqual("Plane has landed");
     })
+
     it('prevents landing when the airport is full', function() {
       for (var i = 0; i < 8; i++){
         airport.land_plane(plane)
       }
-        expect( function () { airport.land_plane(plane) } ).toThrow("Can't land plane, airport full!")
+      expect( function () { airport.land_plane(plane) } ).toThrow("Can't land plane, airport full!")
     })
-    xit('prevents landing when the weather is stormy', function() {
-      weather = { stormy: true };
-      expect( function () { airport.land_plane(plane) } ).toThrow("Can't land plane, weather is stormy!")
-    })
-
   })
 
   describe('#takeoff_plane', function() {
@@ -49,10 +44,24 @@ describe("Airport", function() {
 
   it("allows default capacity to be set", function() {
     for (var i = 0; i < 3; i++){
-      airportCapacity.land_plane(plane)
+      smallerAirport.land_plane(plane)
     }
-    expect( function () { airportCapacity.land_plane(plane) } ).toThrow("Can't land plane, airport full!")
+    expect( function () { smallerAirport.land_plane(plane) } ).toThrow("Can't land plane, airport full!")
   })
 
+  describe("When weather is stormy", function() {
+    beforeEach(function() {
+      spyOn(weather, 'stormy').and.callFake(function(){
+        return true
+      });
+    });
+
+    it('prevents landing when the weather is stormy', function() {
+      expect( function () { airport.land_plane(plane) } ).toThrow("Can't land plane, weather is stormy!")
+    })
+    it('prevents take off when the weather is stormy', function() {
+      expect( function () { airport.takeoff_plane(plane) } ).toThrow("Can't take off plane, weather is stormy!")
+    })
+  });
 
 });
