@@ -1,10 +1,34 @@
 describe("Airport", function() {
   var airport;
+  var plane = null
 
   beforeEach(function() {
-    var airport = new Airport();
+    airport = new Airport();
+    plane = {
+      land: 666
+    };
+    spyOn(plane, 'land');
+  });
+
+
+
+  it('airport has no planes at start', function() {
+    expect(airport.planes.length).toEqual(0)
   })
+
+  it('airport contains landed plane', function() {
+    airport.land_plane(plane)
+    expect(airport.planes).toContain(plane)
+  })
+
+  it('instructs a plane to land', function() {
+    expect(airport.land_plane(plane)).toEqual("Plane has landed");
+
+  })
+
 });
+
+
 
 
 // As an air traffic controller
