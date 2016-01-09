@@ -1,10 +1,3 @@
-describe("Airport", function() {
-  var airport;
-
-  beforeEach(function() {
-    var airport = new Airport();
-  })
-});
 
 
 // As an air traffic controller
