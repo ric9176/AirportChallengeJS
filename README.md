@@ -1,3 +1,3 @@
 ### From Ruby to JS
 
-This project translates the previous coed written in Ruby into Javascript.
+This project translates the previous code written in Ruby into Javascript.
